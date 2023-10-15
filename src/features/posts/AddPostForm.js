@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
-import {postAdded} from "./postsSlice";
+import {addNewPost} from "./postsSlice";
 import {selectAllUsers} from "../users/selector";
 
 const AddPostForm = () => {
@@ -9,25 +9,36 @@ const AddPostForm = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [userId, setUserId] = useState('');
+    const [isRequesting, setIsRequesting] = useState(false);
 
     const users = useSelector(selectAllUsers);
 
     const onTitleChanged = e => setTitle(e.target.value);
     const onContentChanged = e => setContent(e.target.value);
     const onAuthorChanged = e => setUserId(e.target.value);
-    const onSavePostClicked = () => {
-        if (title && content) {
-            dispatch(
-                postAdded(
-                    title, content, userId
-                )
-            )
-            setTitle('');
-            setContent('');
+
+    const canSave = [title, content, userId].every(Boolean) && isRequesting === false;
+    const onSavePostClicked = async () => {
+        if (canSave) {
+            try {
+                setIsRequesting(true);
+                // When you dispatch an async thunk, it returns a promise that resolves into
+                // a SerializedError object if the thunk gets rejected, and resolves into the result of the payloadCreator function
+                // if the thunk is fulfilled.
+                // However, working with these outcomes directly could be somewhat verbose,
+                // which is where unwrapResult and thunkApi.unwrap come into play.
+                await dispatch(addNewPost({title, body: content, userId})).unwrap();
+
+                setTitle('');
+                setContent('');
+                setUserId('');
+            } catch (err) {
+                console.log('Failed to save the post', err);
+            } finally {
+                setIsRequesting(false);
+            }
         }
     }
-
-    const canSave = Boolean(title) && Boolean(content) && Boolean(userId);
 
     const usersOptions = users.map(user => (
         <option key={user.id} value={user.id}>
