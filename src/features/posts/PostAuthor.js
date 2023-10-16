@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import {selectAllUsers} from "../users/selector";
+import {selectAllUsers} from "../users/usersSlice";
 
 import React from 'react';
 

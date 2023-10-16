@@ -1,15 +1,17 @@
 import {useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {addNewPost} from "./postsSlice";
-import {selectAllUsers} from "../users/selector";
+import {selectAllUsers} from "../users/usersSlice";
+import {useNavigate} from "react-router-dom";
 
 const AddPostForm = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [userId, setUserId] = useState('');
-    const [isRequesting, setIsRequesting] = useState(false);
+    const [isPending, setIsPending] = useState(false);
 
     const users = useSelector(selectAllUsers);
 
@@ -17,11 +19,11 @@ const AddPostForm = () => {
     const onContentChanged = e => setContent(e.target.value);
     const onAuthorChanged = e => setUserId(e.target.value);
 
-    const canSave = [title, content, userId].every(Boolean) && isRequesting === false;
+    const canSave = [title, content, userId].every(Boolean) && isPending === false;
     const onSavePostClicked = async () => {
         if (canSave) {
             try {
-                setIsRequesting(true);
+                setIsPending(true);
                 // When you dispatch an async thunk, it returns a promise that resolves into
                 // a SerializedError object if the thunk gets rejected, and resolves into the result of the payloadCreator function
                 // if the thunk is fulfilled.
@@ -32,10 +34,12 @@ const AddPostForm = () => {
                 setTitle('');
                 setContent('');
                 setUserId('');
+                navigate('/');
+
             } catch (err) {
                 console.log('Failed to save the post', err);
             } finally {
-                setIsRequesting(false);
+                setIsPending(false);
             }
         }
     }
