@@ -171,11 +171,6 @@ export const {reactionAdded} = postsSlice.actions;
 
 // || SELECTORS ||
 
-// without adapter
-// export const selectPostById = (state, postId) =>
-//     state.posts.posts.find(post => post.id === postId);
-// export const selectAllPosts = (state) => state.posts.posts;
-
 // The adapter object has a getSelectors function.
 // getSelectors creates these 3 selectors, and we rename them with aliases using destructuring
 // You can pass in a selector that returns this particular slice of state from the Redux root state,
@@ -186,6 +181,11 @@ export const {
     selectIds: selectPostIds
     // Pass in a selector that returns the posts slice of state
 } = postsAdapter.getSelectors(state => state.posts);
+
+// without adapter
+// export const selectPostById = (state, postId) =>
+//     state.posts.posts.find(post => post.id === postId);
+// export const selectAllPosts = (state) => state.posts.posts;
 
 export const selectPostsIsLoading = (state) => state.posts.isLoading;
 export const selectPostsHasError = (state) => state.posts.hasError;

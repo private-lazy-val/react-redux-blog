@@ -1,9 +1,11 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import {createSlice, createAsyncThunk,  createEntityAdapter} from "@reduxjs/toolkit";
 import axios from "axios";
 
 const USERS_URL = 'https://jsonplaceholder.typicode.com/users';
 
-const initialState = [];
+const usersAdapter = createEntityAdapter();
+
+const initialState = usersAdapter.getInitialState();
 
 export const fetchUsers = createAsyncThunk(
     'users/fetchUsers',
@@ -24,7 +26,7 @@ const usersSlice = createSlice({
         builder
             .addCase(
                 fetchUsers.fulfilled, (state, action) => {
-                    return action.payload;
+                    usersAdapter.setAll(state, action.payload);
                 }
             )
     }
@@ -34,5 +36,11 @@ export default usersSlice.reducer;
 
 // || SELECTORS ||
 
-export const selectAllUsers = (state) => state.users;
-export const selectUserById = (state, userId) => state.users.find(user => user.id === userId);
+export const {
+    selectAll: selectAllUsers,
+    selectById: selectUserById } =
+    usersAdapter.getSelectors(state => state.users);
+
+// without adapter
+// export const selectAllUsers = (state) => state.users;
+// export const selectUserById = (state, userId) => state.users.find(user => user.id === userId);

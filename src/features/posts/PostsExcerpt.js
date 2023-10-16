@@ -7,7 +7,7 @@ import {useSelector} from "react-redux";
 
 const PostsExcerpt = ({postId}) => {
     const post = useSelector(state => selectPostById(state, postId));
-    console.log(post)
+
     return (
         <article>
             <h4>{post.title}</h4>
