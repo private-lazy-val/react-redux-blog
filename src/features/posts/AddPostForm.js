@@ -1,17 +1,16 @@
 import {useState} from "react";
-import {useSelector, useDispatch} from "react-redux";
-import {addNewPost} from "./postsSlice";
+import {useSelector} from "react-redux";
 import {selectAllUsers} from "../users/usersSlice";
 import {useNavigate} from "react-router-dom";
+import { useAddNewPostMutation } from "./postsSlice";
 
 const AddPostForm = () => {
-    const dispatch = useDispatch();
+    const [addNewPost, { isLoading }] = useAddNewPostMutation();
     const navigate = useNavigate();
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [userId, setUserId] = useState('');
-    const [isPending, setIsPending] = useState(false);
 
     const users = useSelector(selectAllUsers);
 
@@ -19,17 +18,11 @@ const AddPostForm = () => {
     const onContentChanged = e => setContent(e.target.value);
     const onAuthorChanged = e => setUserId(e.target.value);
 
-    const canSave = [title, content, userId].every(Boolean) && isPending === false;
+    const canSave = [title, content, userId].every(Boolean) && !isLoading;
     const onSavePostClicked = async () => {
         if (canSave) {
             try {
-                setIsPending(true);
-                // When you dispatch an async thunk, it returns a promise that resolves into
-                // a SerializedError object if the thunk gets rejected, and resolves into the result of the payloadCreator function
-                // if the thunk is fulfilled.
-                // However, working with these outcomes directly could be somewhat verbose,
-                // which is where unwrapResult and thunkApi.unwrap come into play.
-                await dispatch(addNewPost({title, body: content, userId})).unwrap();
+                await addNewPost({ title, body: content, userId }).unwrap();
 
                 setTitle('');
                 setContent('');
@@ -38,8 +31,6 @@ const AddPostForm = () => {
 
             } catch (err) {
                 console.log('Failed to save the post', err);
-            } finally {
-                setIsPending(false);
             }
         }
     }
