@@ -1,4 +1,4 @@
-import { useAddReactionMutation } from './postsSlice';
+import {useAddReactionMutation} from './postsSlice';
 
 const reactionEmoji = {
     thumbsUp: '👍',
@@ -19,7 +19,7 @@ const ReactionButtons = ({post}) => {
                 className="reactionButton"
                 onClick={() => {
                     const newValue = post.reactions[name] + 1;
-                    addReaction({ postId: post.id, reactions: { ...post.reactions, [name]: newValue } })
+                    addReaction({postId: post.id, reactions: {...post.reactions, [name]: newValue}})
                 }}
             >
                 {emoji} {post.reactions[name]}
@@ -28,9 +28,7 @@ const ReactionButtons = ({post}) => {
     })
 
     return (
-        <div>
-            {reactionButtons}
-        </div>
+        <div>{reactionButtons}</div>
     );
 };
 

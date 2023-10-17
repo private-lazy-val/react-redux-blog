@@ -116,6 +116,10 @@ textarea {
     color: hsla(0, 0%, 0%, 0.75);
 }
 
+.by {
+    margin-right: .5rem;
+}
+
 .reactionButton {
     margin: 0 0.25em 0 0;
     background: transparent;

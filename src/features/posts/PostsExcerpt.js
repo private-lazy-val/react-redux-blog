@@ -2,16 +2,19 @@ import PostAuthor from "./PostAuthor";
 import TimeAgo from "./TimeAgo";
 import ReactionButtons from "./ReactionButtons";
 import {Link} from 'react-router-dom';
-import {selectPostById} from "./postsSlice";
-import {useSelector} from "react-redux";
+import { useGetPostsQuery } from './postsSlice';
 
 const PostsExcerpt = ({postId}) => {
-    const post = useSelector(state => selectPostById(state, postId));
+    const { post } = useGetPostsQuery('getPosts', {
+        selectFromResult: ({ data }) => ({
+            post: data?.entities[postId]
+        }),
+    })
 
     return (
         <article>
-            <h4>{post.title}</h4>
-            <p>{post.body.substring(0, 75)}</p>
+            <h2>{post.title}</h2>
+            <p>{post.body.substring(0, 75)}...</p>
             <p className="postCredit">
                 <Link to={`post/${post.id}`}>View Post</Link>
                 <PostAuthor userId={post.userId} />
