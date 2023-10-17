@@ -1,5 +1,5 @@
 import PostsExcerpt from "./PostsExcerpt";
-import {useGetPostsQuery} from './postsSlice'
+import {useGetPostsQuery} from './postsSlice';
 
 const PostsList = () => {
     const {

@@ -304,22 +304,16 @@
     },
     {
       "userId": 2,
-      "id": 12,
-      "title": "in quibusdam tempore odit est dolorem",
-      "body": "itaque id aut magnam\npraesentium quia et ea odit et ea voluptas et\nsapiente quia nihil amet occaecati quia id voluptatem\nincidunt ea est distinctio odio",
-      "reactions": {
-        "thumbsUp": 3,
-        "wow": 6,
-        "heart": 6,
-        "rocket": 3,
-        "coffee": 6
-      }
-    },
-    {
-      "userId": 2,
       "id": 13,
       "title": "dolorum ut in voluptas mollitia et saepe quo animi",
-      "body": "aut dicta possimus sint mollitia voluptas commodi quo doloremque\niste corrupti reiciendis voluptatem eius rerum\nsit cumque quod eligendi laborum minima\nperferendis recusandae assumenda consectetur porro architecto ipsum ipsam"
+      "body": "aut dicta possimus sint mollitia voluptas commodi quo doloremque\niste corrupti reiciendis voluptatem eius rerum\nsit cumque quod eligendi laborum minima\nperferendis recusandae assumenda consectetur porro architecto ipsum ipsam",
+      "reactions": {
+        "thumbsUp": 0,
+        "wow": 0,
+        "heart": 0,
+        "rocket": 0,
+        "coffee": 1
+      }
     },
     {
       "userId": 2,
@@ -339,12 +333,6 @@
         "rocket": 2,
         "coffee": 0
       }
-    },
-    {
-      "userId": 2,
-      "id": 16,
-      "title": "sint suscipit perspiciatis velit dolorum rerum ipsa laboriosam odio",
-      "body": "suscipit nam nisi quo aperiam aut\nasperiores eos fugit maiores voluptatibus quia\nvoluptatem quis ullam qui in alias quia est\nconsequatur magni mollitia accusamus ea nisi voluptate dicta"
     },
     {
       "userId": 2,
@@ -864,6 +852,20 @@
       "body": "check one two three",
       "userId": 2,
       "date": "2022-04-26T23:03:52.299Z"
+    },
+    {
+      "title": "Hello world",
+      "body": "test",
+      "userId": 3,
+      "date": "2023-10-17T11:46:28.763Z",
+      "reactions": {
+        "thumbsUp": 2,
+        "wow": 2,
+        "heart": 0,
+        "rocket": 0,
+        "coffee": 0
+      },
+      "id": 103
     }
   ]
 }
